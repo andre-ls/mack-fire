@@ -1,6 +1,10 @@
+import os
+import json
 import requests
 import pandas as pd
+import functions_framework
 from bs4 import BeautifulSoup
+from google.cloud import pubsub_v1
 
 def getHtmlTable():
     url = 'https://dataserver-coids.inpe.br/queimadas/queimadas/focos/csv/10min/'
@@ -32,8 +36,35 @@ def requestData(fileName):
     data = pd.read_csv(url)
     return data
 
-if __name__ == '__main__':
+def generateJson(data):
+    return data.to_json(orient='records')
+
+def sendMessage(google_project, pubsub_topic, json_data):
+    publisher = pubsub_v1.PublisherClient()
+    topic_path = publisher.topic_path(google_project, pubsub_topic)
+
+    for row in json.loads(json_data):
+        message = json.dumps(row)
+        future = publisher.publish(topic_path, message.encode('utf-8'))
+        print(f'Publicando mensagem: {message}')
+        print(f'Publicada com ID: {future.result()}')
+        print('-'*100)
+
+def runIngestion():
+    google_project = 'cloud-714'
+    pubsub_topic = 'fire'
+
     fileTable = getHtmlTable()
     fileName = getMostRecentFileName(fileTable)
     data = requestData(fileName)
-    data.to_csv(f'./data/ingestion/{fileName}.csv')
+    json_data = generateJson(data)
+    sendMessage(google_project, pubsub_topic, json_data)
+
+@functions_framework.http
+def cloudEntrypoint(request):
+    runIngestion()
+    return 'OK'
+
+if __name__ == '__main__':
+    runIngestion()
+
