@@ -3,5 +3,6 @@ pandas
 bs4
 requests
 apache-beam
+apache-beam[gcp]
 google-cloud-pubsub
 functions-framework==3.*
