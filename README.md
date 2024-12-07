@@ -10,6 +10,22 @@ O problema se demonstra na falta de contextualização dos dados no âmbito de r
 
 O INPE registra dados geográficos e meteorológicos por meio de satélites de focos de queimadas pelo Brasil possibilitando o rastreamento destes fenômenos em tempo “quase real”, com um novo registro a cada 10 minutos, os dados estão disponíveis em CSV e KML.
 
+Os dados são divididos nas seguintes colunas: 
+
+**Latitude**
+**Longitude**
+**Data**
+**Temperatura a 2 metros**
+**Humidade Relativa**
+**Temperatura aparente**
+**Dia (Binário)**
+**Precipitação**
+**Chuva**
+**Pressão da superfície**
+**Velocidade do vento**
+**Direção do vento**
+**Data de Inserção**
+
 ## Objetivo
 
 A contextualização e medição dedicada dos dados de locais com focos de incêndio constantes possibilita uma análise crítica por grupos e organizações com expertise e autoridade necessária e dará apoio à esforços que almejam prevenir, conter e securitizar os locais com gravidade séria de desmatamento por queimadas, possivelmente interceptando as queimadas com causas artificiais e preservando as biosferas afetadas pelas queimadas com causas naturais.
