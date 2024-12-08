@@ -1,34 +1,43 @@
-# **Mack Trabalho Final**
-Este trabalho almeja processar dados sobre queimadas do **Instituto Nacional de Pesquisa Espacial**, que são atualizados a cada 10 minutos para fins de 
-Pesquisa por diversos atores, sejam eles ONGs,  institutos independentes de pesquisa, governos estrangeiros, instituições públicas, autoridades federais entre outros. 
+# **Análise de Dados de Queimadas no Brasil**
 
-## Apresentação do problema
+![Queimadas](https://images01.brasildefato.com.br/15a121027faddab66a3956678bff7db9.jpeg)
 
-O problema se demonstra na falta de contextualização dos dados no âmbito de registrar métricas sobre a devastação ambiental que estas queimadas causam, e que podem resultar em danos além das fronteiras brasileiras. A característica de abrangência sem fronteiras das queimadas significam que sua classificação e subsequente solução é um problema de interesse internacional.
+As Queimadas consistem em eventos de incêndio em condições incontroladas que causam, todos os anos, uma quantidade imensurável de dano, principalmente ao meio ambiente. Entre Janeiro e Outubro de 2024, uma área equivalente ao estado de Roraima foi queimada no Brasil. Desta área, 73% afetaram áreas de vegetação nativa do Brasil, e 51% se localiza na Floresta Amazônica. 
 
-## Contexto dos Dados
+Além dos danos ambientais causados, soma-se a isso a grande quantidade de gases poluentes emitidos por estes fenômenos. Entre Junho e Agosto de 2024, as queimadas ocorridas na Amazônia emitiram 31,5 milhões de toneladas de dióxido de carbono (CO²) na atmosfera, de acordo com estimativa do Observatório do Clima. 
 
-O INPE registra dados geográficos e meteorológicos por meio de satélites de focos de queimadas pelo Brasil possibilitando o rastreamento destes fenômenos em tempo “quase real”, com um novo registro a cada 10 minutos, os dados estão disponíveis em CSV e KML.
+Visando contribuir para uma solução deste problema crítico, o projeto contido neste repositório propõe a construção de uma estrutura de ingestão, processamento e análise de dados referentes aos fenômenos de queimadas, utilizando para isto as melhores práticas do campo da Engenharia de Dados. A partir disto, espera-se que os insumos gerados a partir destes dados possam ser utilizados por ONGs, institutos independentes de pesquisa, entidades governamentais, instituições públicas, autoridades federais e outros para mitigar os danos e evitar a ocorrência de futuros eventos.  
 
-Os dados são divididos nas seguintes colunas: 
+## Dados
 
-**Latitude**
-**Longitude**
-**Data**
-**Temperatura a 2 metros**
-**Humidade Relativa**
-**Temperatura aparente**
-**Dia (Binário)**
-**Precipitação**
-**Chuva**
-**Pressão da superfície**
-**Velocidade do vento**
-**Direção do vento**
-**Data de Inserção**
+A fonte principal de dados utilizada para este projeto consiste nos Dados Abertos do *Instituto Nacional de Pesquisas Espaciais* (INPE), que mantém uma seção específica para dados referentes a eventos de queimadas, registrando desde a localização geográfica dos focos, dados sobre seu impacto, obtenção de imagens de satélites, e previsão de dados metereológicos e risco de ocorrência de novos focos de incêndio.
 
-## Objetivo
+Este projeto se concentrou na extração de dados referentes à localização e intensidade dos focos de queimadas no Brasil. Estes dados são disponibilizados no Portal do INPE em quatro níveis temporais diferentes:
+- A cada 10 minutos
+- Diário
+- Mensal
+- Anual
 
-A contextualização e medição dedicada dos dados de locais com focos de incêndio constantes possibilita uma análise crítica por grupos e organizações com expertise e autoridade necessária e dará apoio à esforços que almejam prevenir, conter e securitizar os locais com gravidade séria de desmatamento por queimadas, possivelmente interceptando as queimadas com causas artificiais e preservando as biosferas afetadas pelas queimadas com causas naturais.
+Em termos de conteúdos, os dados contém os seguintes campos:
+- Latitude e Longitude
+- Data de Ocorrência
+- Satélite responsável pela detectção
+- Munícipio, Estado e País
+- Nível de Precipitação e Dias sem Chuva
+- Risco de Incêndio
+- Bioma do Local
+- Potência Radiativa do Fogo
+
+Visando complementar estes dados com mais informações, o projeto também utiliza dados da Open-Meteo, uma API gratuita para obtenção de dados metereológicos de qualquer lugar do mundo a partir de suas coordenadas geográficas. Desta fonte, os seguintes campos foram extraídos:
+- Temperatura a 2 Metros
+- Humidade Relativa
+- Temperatura Aparente
+- Período Diurno ou Noturno
+- Precipitação
+- Chuva
+- Pressão Atmosférica
+- Velocidade do Vento
+- Direção do Vento
 
 ## Solução
 
