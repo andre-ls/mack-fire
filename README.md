@@ -2,15 +2,15 @@
 
 ![Queimadas](https://images01.brasildefato.com.br/15a121027faddab66a3956678bff7db9.jpeg)
 
-As Queimadas consistem em eventos de incêndio em condições incontroladas que causam, todos os anos, uma quantidade imensurável de dano, principalmente ao meio ambiente. Entre Janeiro e Outubro de 2024, uma área equivalente ao estado de Roraima foi queimada no Brasil. Desta área, 73% afetaram áreas de vegetação nativa do Brasil, e 51% se localiza na Floresta Amazônica. 
+Queimadas consistem em eventos de incêndio em condições incontroladas que causam, todos os anos, uma quantidade imensurável de dano ao meio ambiente, principalmente em biomas menos humidos como o Cerrado. De acordo com o MapBiomas Brasil, entre Janeiro e Outubro de 2024, uma área equivalente ao estado de Roraima foi queimada no Brasil. Desta área, 73% afetaram áreas de vegetação nativa do Brasil, e 51% se localiza na Floresta Amazônica. 
 
-Além dos danos ambientais causados, soma-se a isso a grande quantidade de gases poluentes emitidos por estes fenômenos. Entre Junho e Agosto de 2024, as queimadas ocorridas na Amazônia emitiram 31,5 milhões de toneladas de dióxido de carbono (CO²) na atmosfera, de acordo com estimativa do Observatório do Clima. 
+Além dos danos causados a fauna e flora, somam-se a isso a grande quantidade de gases poluentes emitidos por estes fenômenos. O Observatório do clima afirmou que, entre Junho e Agosto de 2024, as queimadas ocorridas apenas na área na Amazônia emitiram 31,5 milhões de toneladas de dióxido de carbono (CO²) na atmosfera, de acordo com estimativa do Observatório do Clima. 
 
-Visando contribuir para uma solução deste problema crítico, o projeto contido neste repositório propõe a construção de uma estrutura de ingestão, processamento e análise de dados referentes aos fenômenos de queimadas, utilizando para isto as melhores práticas do campo da Engenharia de Dados. A partir disto, espera-se que os insumos gerados a partir destes dados possam ser utilizados por ONGs, institutos independentes de pesquisa, entidades governamentais, instituições públicas, autoridades federais e outros para mitigar os danos e evitar a ocorrência de futuros eventos.  
+Visando contribuir para uma solução deste problema crítico, o projeto contido neste repositório propõe a construção de uma estrutura de ingestão, processamento e análise de dados referentes aos fenômenos de queimadas, utilizando para isto as melhores práticas do campo da Engenharia de Dados. A partir disto, espera-se que os insumos gerados a partir destes dados possam ser utilizados por ONGs, institutos independentes de pesquisa, entidades governamentais, instituições públicas, autoridades federais e outros grupos relevantes para mitigar os danos e evitar a ocorrência de futuros eventos.  
 
 ## Dados
 
-A fonte principal de dados utilizada para este projeto consiste nos Dados Abertos do *Instituto Nacional de Pesquisas Espaciais* (INPE), que mantém uma seção específica para dados referentes a eventos de queimadas, registrando desde a localização geográfica dos focos, dados sobre seu impacto, obtenção de imagens de satélites, e previsão de dados metereológicos e risco de ocorrência de novos focos de incêndio.
+A fonte principal de dados utilizada para este projeto consiste nos Dados Abertos do *Instituto Nacional de Pesquisas Espaciais* (INPE), que mantém uma seção específica para dados referentes a eventos de queimadas pela América do Sul, registrando desde a localização geográfica dos focos, dados sobre seu impacto, obtenção de imagens de satélites, e previsão de dados metereológicos e risco de ocorrência de novos focos de incêndio.
 
 Este projeto se concentrou na extração de dados referentes à localização e intensidade dos focos de queimadas no Brasil. Estes dados são disponibilizados no Portal do INPE em quatro níveis temporais diferentes:
 - A cada 10 minutos
