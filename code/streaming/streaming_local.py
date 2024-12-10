@@ -11,6 +11,7 @@ class MyOptions(PipelineOptions):
     def _add_argparse_args(cls, parser):
         parser.add_value_provider_argument('--input_file', type=str, help='Input CSV file to read from')
         parser.add_value_provider_argument('--output_file', type=str, help='Output CSV file to write to')
+        parser.add_value_provider_argument('--mapbox_token', type=str, help='Mapbox Access Token')
 
 def parseCsv(line):
     headers = ['ID','Lat','Long','Satelite','Data']
@@ -24,8 +25,8 @@ def getWeatherData(element):
         element.update(enrichment_data)
     return element
 
-def getLocationData(element):
-    response = requests.get(f"https://api.mapbox.com/search/geocode/v6/reverse?longitude={element['Long']}&latitude={element['Lat']}&types=place,region,country&access_token=pk.eyJ1IjoiYW5kcmUtbHMiLCJhIjoiY200aWQ0Yng3MDEyazJscTBjMDI1YmZscCJ9.ftrO1KyDbDwpXSRcldx4vQ")
+def getLocationData(element,mapbox_token):
+    response = requests.get(f"https://api.mapbox.com/search/geocode/v6/reverse?longitude={element['Long']}&latitude={element['Lat']}&types=place,region,country&access_token={mapbox_token}")
     if response.status_code == 200:
         location_data = response.json()['features'][0]['properties']['context']
         city = location_data['place']['name']
@@ -68,7 +69,7 @@ def run():
          | 'Read from CSV' >> beam.io.ReadFromText(options.input_file, skip_header_lines=1)
          | 'Parse CSV' >> beam.Map(parseCsv)
          | 'Get Weather Data' >> beam.Map(getWeatherData)
-         | 'Get Location Data' >> beam.Map(getLocationData)
+         | 'Get Location Data' >> beam.Map(getLocationData, options.mapbox_token)
          | 'Filter Fields' >> beam.Map(filterData)
          | 'Rename Fields' >> beam.Map(renameFields)
          | 'Add Insertion Date' >> beam.Map(addInsertionDate)
