@@ -41,7 +41,7 @@ Visando complementar estes dados com mais informações, o projeto também utili
 
 ## Solução
 
-![arquitetura da solução](https://github.com/andre-ls/mack-fire/blob/main/Trabalho%20Final%201.1.drawio.png)
+![arquitetura da solução](https://github.com/andre-ls/mack-fire/blob/main/Trabalho%20Final%201.2.drawio.png)
 
 
 Utilizando ferramentas de processamento de dados da plataforma Google Cloud, utilizaremos de dados em streaming a cada 10 minutos do INPE e dados em Batch mensais e anuais para filtrar dados vazios, enriquecer a base de dados e aprimorar os dados relevantes. Os dados serão ingeridos a o serviço de cloud function, por meio de programação em python,  em seguida os dados Streaming serão processados pelo serviço de mensagem do Pub/Sub e os dados em batch serão armazenados em Cloud Storages de acordo com a arquitetura medalhão (Bronze, Silver, Gold), ambos transformados por meio do serviço de Dataflow. Após isso serão alimentados ao Bigquery onde podem ser usados por ferramentas de BI.
