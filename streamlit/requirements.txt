@@ -1,0 +1,6 @@
+pandas_gbq
+streamlit
+numpy
+pandas
+keplergl
+streamlit_keplergl
