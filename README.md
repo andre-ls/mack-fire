@@ -30,7 +30,7 @@ Em termos de conteúdos, os dados contém os seguintes campos:
 
 Visando complementar estes dados com mais informações, o projeto também utiliza dados da Open-Meteo, uma API gratuita para obtenção de dados metereológicos de qualquer lugar do mundo a partir de suas coordenadas geográficas. Desta fonte, os seguintes campos foram extraídos:
 - Temperatura a 2 Metros
-- Humidade Relativa
+- Umidade Relativa
 - Temperatura Aparente
 - Período Diurno ou Noturno
 - Precipitação
