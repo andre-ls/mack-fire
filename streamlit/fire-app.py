@@ -5,7 +5,6 @@ import datetime
 import bq_queries as bigquery
 import altair as alt
 import streamlit as st
-import plotly.express as px
 from keplergl import KeplerGl
 from streamlit_keplergl import keplergl_static
 
@@ -33,6 +32,26 @@ def getMapConfiguration(map_view, measure):
             return 'Umidade'
         if measure == 'Vento':
             return 'Vento'
+
+def removeUpperWhiteSpace():
+    st.markdown(
+        """
+            <style>
+                    .stAppHeader {
+                        background-color: rgba(255, 255, 255, 0.0);  /* Transparent background */
+                        visibility: visible;  /* Ensure the header is visible */
+                    }
+
+                   .block-container {
+                        padding-top: 1rem;
+                        padding-bottom: 0rem;
+                        padding-left: 5rem;
+                        padding-right: 5rem;
+                    }
+            </style>
+            """,
+        unsafe_allow_html=True,
+    )
 
 def calculateCards(data):
     """
@@ -73,20 +92,21 @@ def generateMap(data):
     mapData = data.drop(['Date','Insertion_Date'],axis=1)
     map = KeplerGl(height=600)
     map.add_data(data=mapData,name='Fires')
+    st.markdown('#### Mapa de Queimadas')
     keplergl_static(map)
 
 def generateCountryBarChart(data):
     plotData = data['Country'].value_counts().sort_values(ascending=False).reset_index()
-    #st.bar_chart(data=plotData,x='Country',y='count',horizontal=True)
     c = alt.Chart(plotData).mark_bar().encode(y=alt.Y("Country", sort=None,title='País'), x=alt.X('count',title='Queimadas'))
-    st.header('Países Afetados')
+    st.markdown('#### Países Afetados')
     st.altair_chart(c,use_container_width=True)
 
-def generate3dScatterPlot(data):
+def generateScatterPlot(data):
+    st.markdown('#### Condições Metereológicas')
     plotData = data[['Temperature_2m','Precipitation','Relative_Humidity_2m']]
-    fig = px.scatter_3d(plotData, x='Relative_Humidity_2m', y='Precipitation', z='Temperature_2m')
-    st.plotly_chart(fig,use_container_width=True,height=2000)
+    st.scatter_chart(plotData,x='Relative_Humidity_2m',y='Temperature_2m',x_label='Umidade',y_label='Temperatura')
 
+removeUpperWhiteSpace()
 st.title('🔥Análise de Dados de Queimadas')
 with st.sidebar:
     st.title('Filtros')
@@ -98,11 +118,13 @@ totalFires, totalCountries, lastDate = calculateCards(data)
 positionCards(app_directory, totalFires, totalCountries, lastDate)
 
 column_left, column_right = st.columns(2)
+
 with column_left:
     map_config = getMapConfiguration(mapView, measure)
     generateMap(data)
 
 with column_right:
     generateCountryBarChart(data)
-    generate3dScatterPlot(data)
+    removeUpperWhiteSpace()
+    generateScatterPlot(data)
 
