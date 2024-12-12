@@ -18,7 +18,13 @@ Este projeto se concentrou na extração de dados referentes à localização e 
 - Mensal
 - Anual
 
-Em termos de conteúdos, os dados contém os seguintes campos:
+Dicionário de dados:
+
+| Campo  | Tipo | Descrição |
+| ------------- | ------------- | --------- |
+| Content Cell  | Content Cell  | 
+| Content Cell  | Content Cell  |
+
 - Latitude e Longitude
 - Data de Ocorrência
 - Satélite responsável pela detectção
