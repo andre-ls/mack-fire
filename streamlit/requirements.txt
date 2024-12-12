@@ -4,3 +4,4 @@ numpy
 pandas
 keplergl
 streamlit_keplergl
+plotly

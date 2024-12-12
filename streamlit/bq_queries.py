@@ -1,4 +1,5 @@
 import pandas_gbq
+import pandas as pd
 import streamlit as st
 from google.oauth2 import service_account
 
@@ -18,13 +19,13 @@ credentials = service_account.Credentials.from_service_account_info(
 )
 
 def getFireData():
-
     query = """
     SELECT * 
     FROM `cloud-714.mack_fire.fire_speed`
     WHERE Date = (SELECT MAX(Date) FROM `cloud-714.mack_fire.fire_speed`)
     """
-    return pandas_gbq.read_gbq(query, credentials = credentials)
+    data = pandas_gbq.read_gbq(query, credentials = credentials)
+    return data
 
 def getCountFires():
     query = """
