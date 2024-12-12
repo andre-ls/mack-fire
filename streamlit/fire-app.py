@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import datetime
 import bq_queries as bigquery
+import altair as alt
 import streamlit as st
 import plotly.express as px
 from keplergl import KeplerGl
@@ -76,7 +77,10 @@ def generateMap(data):
 
 def generateCountryBarChart(data):
     plotData = data['Country'].value_counts().sort_values(ascending=False).reset_index()
-    st.bar_chart(data=plotData,x='Country',y='count',horizontal=True)
+    #st.bar_chart(data=plotData,x='Country',y='count',horizontal=True)
+    c = alt.Chart(plotData).mark_bar().encode(y=alt.Y("Country", sort=None,title='País'), x=alt.X('count',title='Queimadas'))
+    st.header('Países Afetados')
+    st.altair_chart(c,use_container_width=True)
 
 def generate3dScatterPlot(data):
     plotData = data[['Temperature_2m','Precipitation','Relative_Humidity_2m']]
@@ -91,8 +95,8 @@ with st.sidebar:
     mapView, measure = setupMapSelection()
 
 totalFires, totalCountries, lastDate = calculateCards(data)
-
 positionCards(app_directory, totalFires, totalCountries, lastDate)
+
 column_left, column_right = st.columns(2)
 with column_left:
     map_config = getMapConfiguration(mapView, measure)
