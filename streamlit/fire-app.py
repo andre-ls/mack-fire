@@ -7,6 +7,7 @@ import altair as alt
 import streamlit as st
 from keplergl import KeplerGl
 from streamlit_keplergl import keplergl_static
+from map_config import *
 
 st.set_page_config(layout='wide')
 
@@ -14,7 +15,7 @@ def setupMapSelection():
     mapView = st.radio('Tipo de Mapa',options=['Posição','Dados Metereológicos'])
 
     if mapView == 'Dados Metereológicos':
-        measure = st.selectbox('Medida a ser exibida', options=['Temperatura','Precipitação','Umidade','Vento'])
+        measure = st.selectbox('Medida a ser exibida', options=['Temperatura','Chuva','Umidade','Vento'])
     else:
         measure = None
 
@@ -22,14 +23,14 @@ def setupMapSelection():
 
 def getMapConfiguration(map_view, measure):
     if map_view == 'Posição':
-        return 'Posição'
+        return location_config
     elif map_view == 'Dados Metereológicos':
         if measure == 'Temperatura':
-            return 'Temperatura'
-        if measure == 'Precipitação':
-            return 'Precipitação'
+            return temperature_config
+        if measure == 'Chuva':
+            return rain_config
         if measure == 'Umidade':
-            return 'Umidade'
+            return humidity_config
         if measure == 'Vento':
             return 'Vento'
 
@@ -88,9 +89,9 @@ def positionCards(app_directory, totalFires, totalCountries, lastDate):
     with column_3:
         st.metric('Última Data de Atualização', lastDate.strftime('%d/%m/%Y %H:%M'))
 
-def generateMap(data):
+def generateMap(data,config):
     mapData = data.drop(['Date','Insertion_Date'],axis=1)
-    map = KeplerGl(height=600)
+    map = KeplerGl(height=600, config=config)
     map.add_data(data=mapData,name='Fires')
     st.markdown('#### Mapa de Queimadas')
     keplergl_static(map)
@@ -121,7 +122,7 @@ column_left, column_right = st.columns(2)
 
 with column_left:
     map_config = getMapConfiguration(mapView, measure)
-    generateMap(data)
+    generateMap(data, map_config)
 
 with column_right:
     generateCountryBarChart(data)
