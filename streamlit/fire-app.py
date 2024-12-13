@@ -34,6 +34,16 @@ def getMapConfiguration(map_view, measure):
         if measure == 'Vento':
             return 'Vento'
 
+def getLastUpdateDate(data, app_directory):
+    lastDate = data['Date'].max() - pd.to_timedelta(3, unit='h')
+    icon, metric = st.columns([0.2, 0.7])
+
+    with icon:
+        st.image(os.path.join(app_directory,"images/calendar.png"),width=70)
+
+    with metric:
+        st.metric('Última Data de Atualização', lastDate.strftime('%d/%m/%Y %H:%M'))
+
 def removeUpperWhiteSpace():
     st.markdown(
         """
@@ -61,10 +71,11 @@ def calculateCards(data):
     totalFires = len(data)
     totalCountries = data['Country'].nunique()
     lastDate = data['Date'].max() - pd.to_timedelta(3, unit='h')
+    avgDuration = round(((data['Insertion_Date'].dt.tz_localize(None) - data['Date']).dt.total_seconds() / 60).mean())
 
-    return totalFires, totalCountries, lastDate
+    return totalFires, totalCountries, avgDuration
 
-def positionCards(app_directory, totalFires, totalCountries, lastDate):
+def positionCards(app_directory, totalFires, totalCountries, avgDuration):
     space_left,\
     column_image_1, column_1,\
     column_image_2, column_2,\
@@ -84,10 +95,10 @@ def positionCards(app_directory, totalFires, totalCountries, lastDate):
         st.metric('Países Afetados', totalCountries)
 
     with column_image_3:
-        st.image(os.path.join(app_directory,"images/calendar.png"),width=70)
+        st.image(os.path.join(app_directory,"images/clock.png"),width=70)
 
     with column_3:
-        st.metric('Última Data de Atualização', lastDate.strftime('%d/%m/%Y %H:%M'))
+        st.metric('Duração Média', f"{avgDuration} minutos")
 
 def generateMap(data,config):
     mapData = data.drop(['Date','Insertion_Date'],axis=1)
@@ -98,21 +109,22 @@ def generateMap(data,config):
 
 def generateCountryBarChart(data):
     plotData = data['Country'].value_counts().sort_values(ascending=False).reset_index()
-    c = alt.Chart(plotData).mark_bar().encode(y=alt.Y("Country", sort=None,title='País'), x=alt.X('count',title='Queimadas'))
+    c = alt.Chart(plotData).mark_bar(color="#DF744E").encode(y=alt.Y("Country", sort=None,title='País'), x=alt.X('count',title='Queimadas'))
     st.markdown('#### Países Afetados')
     st.altair_chart(c,use_container_width=True)
 
 def generateScatterPlot(data):
     st.markdown('#### Condições Metereológicas')
     plotData = data[['Temperature_2m','Precipitation','Relative_Humidity_2m']]
-    st.scatter_chart(plotData,x='Relative_Humidity_2m',y='Temperature_2m',x_label='Umidade',y_label='Temperatura')
+    st.scatter_chart(plotData,x='Relative_Humidity_2m',y='Temperature_2m',x_label='Umidade',y_label='Temperatura',color="#DF744E")
 
 removeUpperWhiteSpace()
 st.title('🔥Análise de Dados de Queimadas')
 with st.sidebar:
-    st.title('Filtros')
     data = bigquery.getFireData()
     app_directory = os.path.dirname(__file__)
+    getLastUpdateDate(data, app_directory)
+    st.title('Filtros')
     mapView, measure = setupMapSelection()
 
 totalFires, totalCountries, lastDate = calculateCards(data)
