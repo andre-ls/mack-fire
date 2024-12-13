@@ -1,13 +1,14 @@
 import os
+import datetime
 import numpy as np
 import pandas as pd
-import datetime
-import bq_queries as bigquery
 import altair as alt
 import streamlit as st
+import bq_queries as bigquery
+from map_config import *
 from keplergl import KeplerGl
 from streamlit_keplergl import keplergl_static
-from map_config import *
+from streamlit_autorefresh import st_autorefresh
 
 st.set_page_config(layout='wide')
 
@@ -118,6 +119,7 @@ def generateScatterPlot(data):
     plotData = data[['Temperature_2m','Precipitation','Relative_Humidity_2m']]
     st.scatter_chart(plotData,x='Relative_Humidity_2m',y='Temperature_2m',x_label='Umidade',y_label='Temperatura',color="#DF744E")
 
+#Configurações da Página
 removeUpperWhiteSpace()
 st.title('🔥Análise de Dados de Queimadas')
 with st.sidebar:
@@ -126,6 +128,7 @@ with st.sidebar:
     getLastUpdateDate(data, app_directory)
     st.title('Filtros')
     mapView, measure = setupMapSelection()
+    count = st_autorefresh(interval=600000, limit=100, key="Refresher")
 
 totalFires, totalCountries, lastDate = calculateCards(data)
 positionCards(app_directory, totalFires, totalCountries, lastDate)

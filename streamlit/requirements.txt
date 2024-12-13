@@ -1,7 +1,8 @@
-pandas_gbq
-streamlit
 numpy
 pandas
+pandas_gbq
 keplergl
-streamlit_keplergl
+streamlit
 altair
+streamlit_keplergl
+streamlit-autorefresh
