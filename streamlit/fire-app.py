@@ -40,7 +40,7 @@ def getLastUpdateDate(data, app_directory):
     icon, metric = st.columns([0.2, 0.7])
 
     with icon:
-        st.image(os.path.join(app_directory,"images/calendar.png"),width=70)
+        st.image(os.path.join(app_directory,"images/calendar_orange.png"),width=70)
 
     with metric:
         st.metric('Última Data de Atualização', lastDate.strftime('%d/%m/%Y %H:%M'))
@@ -84,19 +84,19 @@ def positionCards(app_directory, totalFires, totalCountries, avgDuration):
     space_right = st.columns([0.2, 0.7, 2.0, 0.7, 2.0, 0.7, 2.0, 0.2])
 
     with column_image_1:
-        st.image(os.path.join(app_directory,"images/fire.png"),width=70)
+        st.image(os.path.join(app_directory,"images/fire_orange.png"),width=70)
 
     with column_1:
         st.metric('Total de Queimadas', totalFires)
     
     with column_image_2:
-        st.image(os.path.join(app_directory,"images/globe.png"),width=70)
+        st.image(os.path.join(app_directory,"images/globe_orange.png"),width=70)
 
     with column_2:
         st.metric('Países Afetados', totalCountries)
 
     with column_image_3:
-        st.image(os.path.join(app_directory,"images/clock.png"),width=70)
+        st.image(os.path.join(app_directory,"images/clock_orange.png"),width=70)
 
     with column_3:
         st.metric('Duração Média', f"{avgDuration} minutos")
