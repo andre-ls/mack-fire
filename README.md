@@ -55,4 +55,7 @@ Utilizando ferramentas de processamento de dados da plataforma Google Cloud, uti
 
 ## Resultado
 
-#TO BE DONE
+![Dashboard](https://github.com/andre-ls/mack-fire/blob/main/Dashboard.png)
+
+
+Um Dashboard fora feito, possibilitando a visualização dos dados perante e sua posição em relação a um mapa mundial e os detalhes metereológicos detalhados de acordo com sua esta posição.
