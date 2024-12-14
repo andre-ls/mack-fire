@@ -33,7 +33,7 @@ def getMapConfiguration(map_view, measure):
         if measure == 'Umidade':
             return humidity_config
         if measure == 'Vento':
-            return 'Vento'
+            return wind_config
 
 def getLastUpdateDate(data, app_directory):
     lastDate = data['Date'].max() - pd.to_timedelta(3, unit='h')
