@@ -34,16 +34,21 @@ Dicionário de dados:
 - Bioma do Local
 - Potência Radiativa do Fogo
 
-Visando complementar estes dados com mais informações, o projeto também utiliza dados da Open-Meteo, uma API gratuita para obtenção de dados metereológicos de qualquer lugar do mundo a partir de suas coordenadas geográficas. Desta fonte, os seguintes campos foram extraídos:
-- Temperatura a 2 Metros
-- Umidade Relativa
-- Temperatura Aparente
-- Período Diurno ou Noturno
-- Precipitação
-- Chuva
-- Pressão Atmosférica
-- Velocidade do Vento
-- Direção do Vento
+Visando complementar estes dados com mais informações, o projeto também utiliza dados de duas API's externas. 
+- Open-Meteo, uma API gratuita para obtenção de dados metereológicos de qualquer lugar do mundo a partir de suas coordenadas geográficas. Desta fonte, os seguintes campos foram extraídos:
+  - Temperatura a 2 Metros
+  - Umidade Relativa
+  - Temperatura Aparente
+  - Período Diurno ou Noturno
+  - Precipitação
+  - Chuva
+  - Pressão Atmosférica
+  - Velocidade do Vento
+  - Direção do Vento
+- Mapbox, plataforma com diversas soluções e produtos de geolocalização. A partir da API de Geocoding Reverso das coordenadas geográficas de cada evento, as seguintes informações foram obtidas:
+  - Cidade
+  - Estado
+  - País
 
 ## Solução
 
