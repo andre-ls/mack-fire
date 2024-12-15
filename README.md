@@ -49,18 +49,37 @@ Visando complementar estes dados com mais informações, o projeto também utili
   - Cidade
   - Estado
   - País
+ 
+## Proposta de Solução
 
-## Solução
+### Arquitetura de Dados
+
+Para cumprir o objetivo definido para este projeto, uma arquitetura completa de Ingestão, Tratamento e Distribuição de Dados é proposta seguindo o padrão Lambda, onde se definem duas camadas de processamento: 
+- Uma camada para processamento em Batch, onde se processam dados agregados de um determinado período, como diário, mensal, anual, entre outros, conforme a necessidade.
+- Outra camada para processamento em Streaming, processando dados o mais rápido possível para que sejam entregues aos usuários quase em tempo real.
+
+Com as duas camadas coexistindo na mesma arquitetura, consegue-se promover a entrega de dados aos usuários em vários níveis de velocidade, a depender dos requisitos de utilização. 
+
+Para implementá-la, este projeto utilizou como base os serviços disponibilizados pelo Google Cloud. Abaixo, um esquema final da arquitetura, com a indicação de cada serviço utilizado, é ilustrada.
 
 ![arquitetura da solução](https://github.com/andre-ls/mack-fire/blob/main/Foto%20da%20Arquitetura%20drawio.png)
 
+Listando de maneira um pouco mais detalhada, os seguintes serviços do Google Cloud foram utilizados:
+- Cloud Functions: Produto Serveless de Function as a Service, que permite a disponibilização de códigos de baixa complexidade em ambiente de Nuvem com poucas configurações. Neste projeto, o Functions foi utilizado para a execução de código Python responsável pela ingestão dos dados oriundos do INPE.
+- Dataflow: Ferramenta de processamento de dados, tanto em Batch quanto em Streaming. Seu funcionamento se baseia na execução de códigos do framework Apache Beam, também de autoria do Google. Visando a centralização de todo o processamento em uma única plataforma, o Dataflow é utilizado na arquitetura proposta tanto para o processamento de dados na camada Batch quanto na camada de Streaming.
+- Cloud Storage: Para o armazenamento dos dados na camada de Batch foi utilizado o Cloud Storage, solução de armanzenamento de objetos do Google Cloud. 
+- PubSub: Para a transmissão de mensagens em baixa latência na camada de Streaming, foi utilizado o PubSub, serviço de streaming do Google Cloud. Como o seu nome já entrega, seu funcinamento é baseado no modelo de Publisher/Subscirber, com o envio e consumo de mensagens organizado via tópicos.
+- BigQuery: Por fim, para disponibilização dos dados aos seus usuários finais, foi utilizado o BigQuery, ferramenta de Data Warehousing do Google. Através dela, é possível armazenar e consultar dados via SQL de uma maneira bastante performática. Sem falar, que várias outras ferramentas de análise e visualização de dados possuem integração direta com o BigQuery.
 
-Utilizando ferramentas de processamento de dados da plataforma Google Cloud, utilizaremos de dados em streaming a cada 10 minutos do INPE e dados em Batch mensais e anuais para filtrar dados vazios, enriquecer a base de dados e aprimorar os dados relevantes. Os dados serão ingeridos a o serviço de cloud function, por meio de programação em python,  em seguida os dados Streaming serão processados pelo serviço de mensagem do Pub/Sub e os dados em batch serão armazenados em Cloud Storages de acordo com a arquitetura medalhão (Bronze, Silver, Gold), ambos transformados por meio do serviço de Dataflow. Após isso serão alimentados ao Bigquery onde podem ser usados por ferramentas de BI.
+### Modelagem de Dados
+TO-DO
 
+## Minimal Viable Product
 
-## Resultado
+### Camada de Streaming
 
 ![Dashboard](https://github.com/andre-ls/mack-fire/blob/main/Dashboard.png)
 
+### Dashboard
 
 Um Dashboard fora feito, possibilitando a visualização dos dados perante e sua posição em relação a um mapa mundial e os detalhes metereológicos detalhados de acordo com sua esta posição.
