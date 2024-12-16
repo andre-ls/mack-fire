@@ -165,11 +165,13 @@ Listando de maneira um pouco mais detalhada, os seguintes serviços do Google Cl
 - Cloud Storage: Para o armazenamento dos dados na camada de Batch foi utilizado o Cloud Storage, solução de armanzenamento de objetos do Google Cloud. 
 - PubSub: Para a transmissão de mensagens em baixa latência na camada de Streaming, foi utilizado o PubSub, serviço de streaming do Google Cloud. Como o seu nome já entrega, seu funcinamento é baseado no modelo de Publisher/Subscirber, com o envio e consumo de mensagens organizado via tópicos.
 - BigQuery: Por fim, para disponibilização dos dados aos seus usuários finais, foi utilizado o BigQuery, ferramenta de Data Warehousing do Google. Através dela, é possível armazenar e consultar dados via SQL de uma maneira bastante performática. Sem falar, que várias outras ferramentas de análise e visualização de dados possuem integração direta com o BigQuery.
+  
 ---
 
-## Minimal Viable Product (MVP)
+## Minimal Viable Product (MVP) ## 
 
 Como Produto Mínimo Viável da arquitetura completa proposta, este projeto focou em implementar inicialmente a camada de Streaming da arquitetura, julgando que o acompanhamento em quase tempo real dos eventos de queimada seria uma demanda mais prioritária dentro do contexto do problema, podendo auxiliar em uma rápida tomada de decisão para mitigar os danos dos eventos atuais.
+
 ---
 
 ### Camada de Streaming
@@ -190,6 +192,7 @@ https://mack-fire.streamlit.app/
 Um Dashboard fora feito, possibilitando a visualização dos dados perante e sua posição em relação a um mapa mundial e os detalhes metereológicos detalhados de acordo com sua esta posição. Suas visualizações foram criadas com o objetivo de fornecer ao usuário um rápido e claro panorama do cenário atual de ocorrência de queimadas na América do Sul, focando principalmente na sua localização, mas também adicionando informações metereológicas que possam contribuir para uma inferência sobre a possível origem dos eventos, como a temperatura, níveis de precipitação e umidade, ou que possam ser de relevância para o devido combate à ocorrência e sua mitigação, como a velocidade e direção do vento.
 
 O Dashboard foi programado para uma atualização automática a cada 10 minutos, de forma a fazê-lo capturar o estado mais recente dos dados. Entretanto, para fins de economia e evitar custos computacionais à plataforma do Streamlit, que hospeda a aplicação gratuitamente em sua infraestrutura, as atualizações automáticas são desativadas após 100 execuções a partir da ativação da aplicação.
+
 ---
 
 ## Sobre o Projeto
