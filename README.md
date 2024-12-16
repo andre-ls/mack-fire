@@ -88,8 +88,8 @@ Abaixo está o diagrama que representa a modelagem da Wide Table:
 ## Tabela: fato_queimada
 | **Campo**                    | **Tipo de Dado**   | **Descrição**                                                    |
 |------------------------------|--------------------|------------------------------------------------------------------|
-| id_data                      | INT (FK,PK)        | Chave estrangeira que referencia a dimensão `dimensao_data`. Chave primária composta com id_local e id_origem|
-| id_local                     | INT (FK,PK)        | Chave estrangeira que referencia a dimensão `dimensao_localizacao`. Chave primária composta com id_data e id_origem|
+| id_data                      | INT (FK,PK)        | Chave estrangeira que referencia a dimensão `dimensao_data`. Chave primária composta com `id_local` e `id_origem`|
+| id_local                     | INT (FK,PK)        | Chave estrangeira que referencia a dimensão `dimensao_localizacao`. Chave primária composta com `id_data` e `id_origem`|
 | id_origem                    | INT (FK,PK)        | Chave estrangeira que referencia a dimensão `dimensao_origem`. Chave primária composta com id_data e id_local|
 | vl_latitude                  | DECIMAL            | Latitude do ponto da queimada                                    |
 | vl_longitude                 | DECIMAL            | Longitude do ponto da queimada                                   |
