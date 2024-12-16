@@ -104,7 +104,7 @@ Abaixo está o diagrama que representa a modelagem da Wide Table:
 ### Dicionário de Dados
 Por fim, visando trazer uma maior acessibilidade dos dados disponibilizados pela solução, e ao mesmo tempo, garantir uma sólida documentação da solução como um todo, um Dicionário de Dados foi proposto, contendo o nome, tipo dos dados contidos e uma breve descrição conceitual de cada campo das tabelas disponibilizadas.
 
-
+#### Star Schema
 #### Tabela: fato_queimada
 | **Campo**                    | **Tipo de Dado**   | **Descrição**                                                    |
 |------------------------------|--------------------|------------------------------------------------------------------|
@@ -114,14 +114,14 @@ Por fim, visando trazer uma maior acessibilidade dos dados disponibilizados pela
 | vl_latitude                  | DECIMAL            | Latitude do ponto da queimada                                    |
 | vl_longitude                 | DECIMAL            | Longitude do ponto da queimada                                   |
 | fl_dia_noite                 | BOOLEAN            | Indica se o evento ocorreu durante o dia ou a noite              |
-| vl_temperatura_a_2_metros    | DECIMAL            | Temperatura medida a 2 metros de altura                          |
-| vl_umidade_relativa          | DECIMAL            | Umidade relativa do ar durante o evento                          |
+| vl_temperatura_a_2_metros    | DECIMAL            | Temperatura medida a 2 metros de altura, em graus Celsius        |
+| vl_umidade_relativa          | DECIMAL            | % da umidade relativa do ar durante o evento                          |
 | vl_temperatura_aparente      | DECIMAL            | Temperatura percebida ou aparente                                |
 | vl_precipitacao              | DECIMAL            | Precipitação medida no momento                                   |
-| vl_velocidade_vento          | DECIMAL            | Velocidade do vento registrada                                   |
-| vl_chuva                     | DECIMAL            | Quantidade de chuva medida                                       |
-| vl_pressao_atmosferica       | DECIMAL            | Pressão atmosférica medida durante o evento                      |
-| vl_direcao_vento             | DECIMAL            | Direção do vento registrada                                      |
+| vl_velocidade_vento          | DECIMAL            | Velocidade do vento registrada em Km/h                           |
+| vl_chuva                     | DECIMAL            | Valor específico de chuva acumulada em milímetros                |
+| vl_pressao_atmosferica       | DECIMAL            | Pressão atmosférica registrada em hPa (hectopascal)              |
+| vl_direcao_vento             | DECIMAL            | Direção do vento registrada em graus (0°-360°)                   |
 | ds_satelite                  | VARCHAR            | Nome do satélite que capturou a informação                       |
 | vl_risco_incendio            | DECIMAL            | Índice de risco de incêndio                                      |
 | vl_potencia_radiativa_fogo   | DECIMAL            | Potência radiativa do fogo                                       |
@@ -160,6 +160,28 @@ Por fim, visando trazer uma maior acessibilidade dos dados disponibilizados pela
 | ds_origem_queimada           | VARCHAR            | Descrição da origem da queimada (ex: natural ou humana)          |
 | fl_atv_humana                | BOOLEAN            | Indica se a queimada foi causada por atividade humana            |
 | fl_responsavel               | BOOLEAN            | Indica se houve responsável identificado pela queimada           |
+
+### Wide Table
+| **Campo**                     | **Tipo de Dado**    | **Descrição**                                                     |
+|-------------------------------|---------------------|-------------------------------------------------------------------|
+| ID                            | INT (PK)           | Identificador único da instância                                  |
+| vl_latitude                   | FLOAT              | Latitude do ponto da queimada                                     |
+| vl_longitude                  | FLOAT              | Longitude do ponto da queimada                                     |
+| dt_data                       | DATE               | Data do registro do evento                                        |
+| fl_dia_noite                  | BOOLEAN            | Indica se o evento ocorreu durante o dia ou a noite               |
+| vl_temperatura_a_2_metros     | FLOAT              | Temperatura medida a 2 metros de altura, em graus Celsius         |
+| vl_umidade_relativa           | FLOAT              | % da umidade relativa do ar durante o evento                      |
+| vl_temperatura_aparente       | FLOAT              | Temperatura percebida ou aparente                                 |
+| vl_precipitacao               | FLOAT              | Precipitação medida no momento                                    |
+| vl_chuva                      | FLOAT              | Valor específico de chuva acumulada em milímetros                 |
+| vl_pressao_atmosferica        | FLOAT              | Pressão atmosférica registrada em hPa (hectopascal)               |
+| vl_velocidade_vento           | FLOAT              | Velocidade do vento registrada em km/h                            |
+| vl_direcao_vento              | INT                | Direção do vento em graus (0-360°)                                |
+| date_insercao                 | DATETIME           | Data e hora de inserção do registro no sistema                    |
+| ds_municipio                  | VARCHAR            | Nome do município onde ocorreu o evento                           |
+| ds_estado                     | VARCHAR            | Nome do estado onde ocorreu o evento                              |
+| ds_pais                       | VARCHAR            | Nome do país onde ocorreu o evento                                |
+
 ---
 
 ## Minimal Viable Product (MVP) ## 
