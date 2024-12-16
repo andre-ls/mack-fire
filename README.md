@@ -18,13 +18,7 @@ Este projeto se concentrou na extração de dados referentes à localização e 
 - Mensal
 - Anual
 
-Dicionário de dados:
-
-| Campo  | Tipo | Descrição |
-| ------------- | ------------- | --------- |
-| Content Cell  | Content Cell  | 
-| Content Cell  | Content Cell  |
-
+Os campos disponibilizados pela fonte principal são:
 - Latitude e Longitude
 - Data de Ocorrência
 - Satélite responsável pela detectção
@@ -49,7 +43,108 @@ Visando complementar estes dados com mais informações, o projeto também utili
   - Cidade
   - Estado
   - País
- 
+---
+## Modelagem de Dados
+
+A modelagem de dados do projeto foi realizada com base em duas abordagens distintas: **Star Schema** e **Wide Table**, que permitem atender diferentes necessidades de análise e performance.
+
+### **1. Star Schema**
+
+O **Star Schema** foi utilizado para organizar os dados de forma estruturada, facilitando consultas analíticas e garantindo melhor desempenho em sistemas OLAP (Online Analytical Processing). Ele é composto por uma tabela fato e tabelas dimensão relacionadas.
+
+#### **Diagrama do Star Schema**
+Abaixo está o diagrama que representa a modelagem em Star Schema:
+
+![Star Schema](https://github.com/andre-ls/mack-fire/blob/main/StarSchemaMackFire%20.png)
+
+#### **Tabelas**
+
+- **Tabela Fato: fato_queimada**  
+  Contém os dados principais relacionados às queimadas e métricas para análise.  
+  Possui chaves estrangeiras que referenciam as tabelas dimensão.
+
+- **Tabelas Dimensão:**  
+  - **dimensao_data:** Contém informações relacionadas à data do evento.  
+  - **dimensao_localizacao:** Contém dados geográficos como município, estado, país e bioma.  
+  - **dimensao_origem:** Contém informações sobre a origem da queimada, como causas naturais ou humanas.
+
+---
+
+### **2. Wide Table**
+
+A **Wide Table** é uma abordagem alternativa que consolida todos os dados de interesse em uma única tabela desnormalizada. Ela agrega os atributos das tabelas fato e dimensão em colunas individuais, oferecendo uma estrutura plana e simplificada. 
+
+Optamos por utilizar a **Wide Table** na nossa **camada de streaming** devido à sua estrutura desnormalizada, que facilita a ingestão e o processamento de dados em tempo real. A ausência de junções complexas entre tabelas permite um **consumo mais rápido** e **eficiente** das informações, essencial para cenários em que a latência precisa ser minimizada. Dessa forma, conseguimos entregar dados consolidados e prontos para consumo, garantindo maior agilidade para análises em tempo real e aplicações que dependem de dados contínuos.
+
+
+#### **Diagrama da Wide Table**
+Abaixo está o diagrama que representa a modelagem da Wide Table:
+
+![Wide Table](https://github.com/andre-ls/mack-fire/blob/main/WideTableMackFire.png)
+
+---
+# Dicionário de Dados
+
+## Tabela: fato_queimada
+| **Campo**                    | **Tipo de Dado**   | **Descrição**                                                    |
+|------------------------------|--------------------|------------------------------------------------------------------|
+| id_data                      | INT (FK,PK)        | Chave estrangeira que referencia a dimensão `dimensao_data`. Chave primária composta com `id_local` e `id_origem`|
+| id_local                     | INT (FK,PK)        | Chave estrangeira que referencia a dimensão `dimensao_localizacao`. Chave primária composta com `id_data` e `id_origem`|
+| id_origem                    | INT (FK,PK)        | Chave estrangeira que referencia a dimensão `dimensao_origem`. Chave primária composta com id_data e id_local|
+| vl_latitude                  | DECIMAL            | Latitude do ponto da queimada                                    |
+| vl_longitude                 | DECIMAL            | Longitude do ponto da queimada                                   |
+| fl_dia_noite                 | BOOLEAN            | Indica se o evento ocorreu durante o dia ou a noite              |
+| vl_temperatura_a_2_metros    | DECIMAL            | Temperatura medida a 2 metros de altura                          |
+| vl_umidade_relativa          | DECIMAL            | Umidade relativa do ar durante o evento                          |
+| vl_temperatura_aparente      | DECIMAL            | Temperatura percebida ou aparente                                |
+| vl_precipitacao              | DECIMAL            | Precipitação medida no momento                                   |
+| vl_velocidade_vento          | DECIMAL            | Velocidade do vento registrada                                   |
+| vl_chuva                     | DECIMAL            | Quantidade de chuva medida                                       |
+| vl_pressao_atmosferica       | DECIMAL            | Pressão atmosférica medida durante o evento                      |
+| vl_direcao_vento             | DECIMAL            | Direção do vento registrada                                      |
+| ds_satelite                  | VARCHAR            | Nome do satélite que capturou a informação                       |
+| vl_risco_incendio            | DECIMAL            | Índice de risco de incêndio                                      |
+| vl_potencia_radiativa_fogo   | DECIMAL            | Potência radiativa do fogo                                       |
+
+---
+
+## Tabela: dimensao_data
+| **Campo**                    | **Tipo de Dado**   | **Descrição**                                                    |
+|------------------------------|--------------------|------------------------------------------------------------------|
+| id_data                      | INT (PK)           | Identificador único da data                                      |
+| nr_dia                       | INT                | Dia do mês                                                      |
+| nr_mes                       | INT                | Mês do ano                                                      |
+| nr_ano                       | INT                | Ano                                                             |
+| ds_dia_da_semana             | VARCHAR            | Nome do dia da semana                                           |
+| nr_semana_do_ano             | INT                | Semana do ano                                                   |
+| fl_dia_util                  | BOOLEAN            | Indica se o dia é útil                                          |
+| ds_estacao_ano               | VARCHAR            | Estação do ano (Verão, Inverno, etc.)                           |
+| nr_bimestre                  | INT                | Bimestre do ano                                                 |
+| nr_trimestre                 | INT                | Trimestre do ano                                                |
+| nr_semestre                  | INT                | Semestre do ano                                                 |
+
+---
+
+## Tabela: dimensao_localizacao
+| **Campo**                    | **Tipo de Dado**   | **Descrição**                                                    |
+|------------------------------|--------------------|------------------------------------------------------------------|
+| id_local                     | INT (PK)           | Identificador único da localização                               |
+| ds_municipio                 | VARCHAR            | Nome do município                                                |
+| ds_estado                    | VARCHAR            | Nome do estado                                                   |
+| ds_pais                      | VARCHAR            | Nome do país                                                     |
+| ds_bioma                     | VARCHAR            | Nome do bioma (ex: Amazônia, Cerrado)                            |
+
+---
+
+## Tabela: dimensao_origem
+| **Campo**                    | **Tipo de Dado**   | **Descrição**                                                    |
+|------------------------------|--------------------|------------------------------------------------------------------|
+| id_origem                    | INT (PK)           | Identificador único da origem                                    |
+| ds_origem_queimada           | VARCHAR            | Descrição da origem da queimada (ex: natural ou humana)          |
+| fl_atv_humana                | BOOLEAN            | Indica se a queimada foi causada por atividade humana            |
+| fl_responsavel               | BOOLEAN            | Indica se houve responsável identificado pela queimada           |
+---
+
 ## Proposta de Solução
 
 ### Arquitetura de Dados
@@ -62,7 +157,7 @@ Com as duas camadas coexistindo na mesma arquitetura, consegue-se promover a ent
 
 Para implementá-la, este projeto utilizou como base os serviços disponibilizados pelo Google Cloud. Abaixo, um esquema final da arquitetura, com a indicação de cada serviço utilizado, é ilustrada.
 
-![arquitetura da solução](https://github.com/andre-ls/mack-fire/blob/main/Foto%20da%20Arquitetura%20drawio.png)
+![Arquitetura](https://github.com/andre-ls/mack-fire/blob/main/Arquivo%20da%20Arquitetura%20drawio.png)
 
 Listando de maneira um pouco mais detalhada, os seguintes serviços do Google Cloud foram utilizados:
 - Cloud Functions: Produto Serveless de Function as a Service, que permite a disponibilização de códigos de baixa complexidade em ambiente de Nuvem com poucas configurações. Neste projeto, o Functions foi utilizado para a execução de código Python responsável pela ingestão dos dados oriundos do INPE.
@@ -70,28 +165,35 @@ Listando de maneira um pouco mais detalhada, os seguintes serviços do Google Cl
 - Cloud Storage: Para o armazenamento dos dados na camada de Batch foi utilizado o Cloud Storage, solução de armanzenamento de objetos do Google Cloud. 
 - PubSub: Para a transmissão de mensagens em baixa latência na camada de Streaming, foi utilizado o PubSub, serviço de streaming do Google Cloud. Como o seu nome já entrega, seu funcinamento é baseado no modelo de Publisher/Subscirber, com o envio e consumo de mensagens organizado via tópicos.
 - BigQuery: Por fim, para disponibilização dos dados aos seus usuários finais, foi utilizado o BigQuery, ferramenta de Data Warehousing do Google. Através dela, é possível armazenar e consultar dados via SQL de uma maneira bastante performática. Sem falar, que várias outras ferramentas de análise e visualização de dados possuem integração direta com o BigQuery.
+  
+---
 
-### Modelagem de Dados
-TO-DO
-
-## Minimal Viable Product (MVP)
+## Minimal Viable Product (MVP) ## 
 
 Como Produto Mínimo Viável da arquitetura completa proposta, este projeto focou em implementar inicialmente a camada de Streaming da arquitetura, julgando que o acompanhamento em quase tempo real dos eventos de queimada seria uma demanda mais prioritária dentro do contexto do problema, podendo auxiliar em uma rápida tomada de decisão para mitigar os danos dos eventos atuais.
+
+---
 
 ### Camada de Streaming
 
 A Arquitetura do MVP implementado segue o desenho abaixo, que de certa forma consiste em um recorte da camada de Streaming da arquitetura completa.
 
+![Streaming](https://github.com/andre-ls/mack-fire/blob/main/Arquitetura%20Streaming.png)
+--- 
 
 ### Dashboard
 
 Para o consumo e exibição dos dados processados, um dashboard foi criado utilizando o Streamlit, uma plataforma open-source que permite a criação rápida e fácil de aplicativos simples a partir da utilização de código Python. 
 
-![Dashboard](https://github.com/andre-ls/mack-fire/blob/main/Dashboard.png)
+![Dashboard](dashboard.png)
+
+https://mack-fire.streamlit.app/
 
 Um Dashboard fora feito, possibilitando a visualização dos dados perante e sua posição em relação a um mapa mundial e os detalhes metereológicos detalhados de acordo com sua esta posição. Suas visualizações foram criadas com o objetivo de fornecer ao usuário um rápido e claro panorama do cenário atual de ocorrência de queimadas na América do Sul, focando principalmente na sua localização, mas também adicionando informações metereológicas que possam contribuir para uma inferência sobre a possível origem dos eventos, como a temperatura, níveis de precipitação e umidade, ou que possam ser de relevância para o devido combate à ocorrência e sua mitigação, como a velocidade e direção do vento.
 
 O Dashboard foi programado para uma atualização automática a cada 10 minutos, de forma a fazê-lo capturar o estado mais recente dos dados. Entretanto, para fins de economia e evitar custos computacionais à plataforma do Streamlit, que hospeda a aplicação gratuitamente em sua infraestrutura, as atualizações automáticas são desativadas após 100 execuções a partir da ativação da aplicação.
+
+---
 
 ## Sobre o Projeto
 
@@ -106,6 +208,7 @@ Membros do Grupo:
 - Bruno Pekelman
 - Larissa Vicentin Gramacho
 - Thomas Bauer Corsaro
+---
 
 ## Possíveis Próximos Passos
 
