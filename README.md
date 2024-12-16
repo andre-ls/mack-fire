@@ -170,12 +170,14 @@ Listando de maneira um pouco mais detalhada, os seguintes serviços do Google Cl
 ## Minimal Viable Product (MVP)
 
 Como Produto Mínimo Viável da arquitetura completa proposta, este projeto focou em implementar inicialmente a camada de Streaming da arquitetura, julgando que o acompanhamento em quase tempo real dos eventos de queimada seria uma demanda mais prioritária dentro do contexto do problema, podendo auxiliar em uma rápida tomada de decisão para mitigar os danos dos eventos atuais.
+---
 
 ### Camada de Streaming
 
 A Arquitetura do MVP implementado segue o desenho abaixo, que de certa forma consiste em um recorte da camada de Streaming da arquitetura completa.
 
 ![Streaming](https://github.com/andre-ls/mack-fire/blob/main/Arquitetura%20Streaming.png)
+--- 
 
 ### Dashboard
 
@@ -188,6 +190,7 @@ https://mack-fire.streamlit.app/
 Um Dashboard fora feito, possibilitando a visualização dos dados perante e sua posição em relação a um mapa mundial e os detalhes metereológicos detalhados de acordo com sua esta posição. Suas visualizações foram criadas com o objetivo de fornecer ao usuário um rápido e claro panorama do cenário atual de ocorrência de queimadas na América do Sul, focando principalmente na sua localização, mas também adicionando informações metereológicas que possam contribuir para uma inferência sobre a possível origem dos eventos, como a temperatura, níveis de precipitação e umidade, ou que possam ser de relevância para o devido combate à ocorrência e sua mitigação, como a velocidade e direção do vento.
 
 O Dashboard foi programado para uma atualização automática a cada 10 minutos, de forma a fazê-lo capturar o estado mais recente dos dados. Entretanto, para fins de economia e evitar custos computacionais à plataforma do Streamlit, que hospeda a aplicação gratuitamente em sua infraestrutura, as atualizações automáticas são desativadas após 100 execuções a partir da ativação da aplicação.
+---
 
 ## Sobre o Projeto
 
@@ -202,6 +205,7 @@ Membros do Grupo:
 - Bruno Pekelman
 - Larissa Vicentin Gramacho
 - Thomas Bauer Corsaro
+---
 
 ## Possíveis Próximos Passos
 
