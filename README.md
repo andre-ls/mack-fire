@@ -74,12 +74,45 @@ Listando de maneira um pouco mais detalhada, os seguintes serviços do Google Cl
 ### Modelagem de Dados
 TO-DO
 
-## Minimal Viable Product
+## Minimal Viable Product (MVP)
+
+Como Produto Mínimo Viável da arquitetura completa proposta, este projeto focou em implementar inicialmente a camada de Streaming da arquitetura, julgando que o acompanhamento em quase tempo real dos eventos de queimada seria uma demanda mais prioritária dentro do contexto do problema, podendo auxiliar em uma rápida tomada de decisão para mitigar os danos dos eventos atuais.
 
 ### Camada de Streaming
 
-![Dashboard](https://github.com/andre-ls/mack-fire/blob/main/Dashboard.png)
+A Arquitetura do MVP implementado segue o desenho abaixo, que de certa forma consiste em um recorte da camada de Streaming da arquitetura completa.
+
 
 ### Dashboard
 
-Um Dashboard fora feito, possibilitando a visualização dos dados perante e sua posição em relação a um mapa mundial e os detalhes metereológicos detalhados de acordo com sua esta posição.
+Para o consumo e exibição dos dados processados, um dashboard foi criado utilizando o Streamlit, uma plataforma open-source que permite a criação rápida e fácil de aplicativos simples a partir da utilização de código Python. 
+
+![Dashboard](https://github.com/andre-ls/mack-fire/blob/main/Dashboard.png)
+
+Um Dashboard fora feito, possibilitando a visualização dos dados perante e sua posição em relação a um mapa mundial e os detalhes metereológicos detalhados de acordo com sua esta posição. Suas visualizações foram criadas com o objetivo de fornecer ao usuário um rápido e claro panorama do cenário atual de ocorrência de queimadas na América do Sul, focando principalmente na sua localização, mas também adicionando informações metereológicas que possam contribuir para uma inferência sobre a possível origem dos eventos, como a temperatura, níveis de precipitação e umidade, ou que possam ser de relevância para o devido combate à ocorrência e sua mitigação, como a velocidade e direção do vento.
+
+O Dashboard foi programado para uma atualização automática a cada 10 minutos, de forma a fazê-lo capturar o estado mais recente dos dados. Entretanto, para fins de economia e evitar custos computacionais à plataforma do Streamlit, que hospeda a aplicação gratuitamente em sua infraestrutura, as atualizações automáticas são desativadas após 100 execuções a partir da ativação da aplicação.
+
+## Sobre o Projeto
+
+<img src="https://logodownload.org/wp-content/uploads/2017/09/mackenzie-logo.png" alt="Mackenzie" width="500"/>
+
+Este projeto foi desenvolvido como trabalho final da disciplina de DevOps e DataOps, componente do curso de Pós-Graduação em Engenharia de Dados oferecido pela Universidade Presbiteriana Mackenzie e lecionada pelo Prof. Gustavo Ferreira.
+
+Como disciplina final de todo o curso, o trabalho propôs como objetivo a aplicação de todos os conhecimentos adquiridos durante o curso para arquitetar uma solução completa de dados para a resolução de um problema de livre escolha por parte dos alunos, e a partir disso implementar um Produto Mínimo Viável da solução em um ambiente de nuvem. 
+
+Membros do Grupo:
+- André Luis Andrade Machado
+- Bruno Pekelman
+- Larissa Vicentin Gramacho
+- Thomas Bauer Corsaro
+
+## Possíveis Próximos Passos
+
+Como possíveis próximos passos para a otimização e evolução deste projeto, os seguintes pontos são levantados:
+- Implementação da ingestão dos dados do INPE em outros níveis de atualização, como dados diários e mensais.
+- Implementação da camada de processamento de dados em Batch, complementando assim o MVP do projeto.
+- Implementação de tratativas específicas para o processamento em Streaming, como por exemplo, em situações onde não há ocorrência de eventos ou situações de duplicidade dos dados.
+- Incrementar o dahsboard com visualizações que analisem dados históricos sobre os eventos de queimada.
+- Adicionar o dashboard visualizações específicas que possam tirar maior proveito das informações de velocidade e direção do vento.
+
