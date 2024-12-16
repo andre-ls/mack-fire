@@ -18,13 +18,7 @@ Este projeto se concentrou na extração de dados referentes à localização e 
 - Mensal
 - Anual
 
-Dicionário de dados:
-
-| Campo  | Tipo | Descrição |
-| ------------- | ------------- | --------- |
-| Content Cell  | Content Cell  | 
-| Content Cell  | Content Cell  |
-
+Os campos disponibilizados pela fonte principal são:
 - Latitude e Longitude
 - Data de Ocorrência
 - Satélite responsável pela detectção
@@ -49,6 +43,67 @@ Visando complementar estes dados com mais informações, o projeto também utili
   - Cidade
   - Estado
   - País
+ 
+# Dicionário de Dados
+
+## Tabela: fato_queimada
+| **Campo**                    | **Tipo de Dado**   | **Descrição**                                                    |
+|------------------------------|--------------------|------------------------------------------------------------------|
+| id_data                      | INT (FK,PK)        | Chave estrangeira que referencia a dimensão `dimensao_data`. Chave primária composta com id_local e id_origem|
+| id_local                     | INT (FK,PK)        | Chave estrangeira que referencia a dimensão `dimensao_localizacao`. Chave primária composta com id_data e id_origem|
+| id_origem                    | INT (FK,PK)        | Chave estrangeira que referencia a dimensão `dimensao_origem`. Chave primária composta com id_data e id_local|
+| vl_latitude                  | DECIMAL            | Latitude do ponto da queimada                                    |
+| vl_longitude                 | DECIMAL            | Longitude do ponto da queimada                                   |
+| fl_dia_noite                 | BOOLEAN            | Indica se o evento ocorreu durante o dia ou a noite              |
+| vl_temperatura_a_2_metros    | DECIMAL            | Temperatura medida a 2 metros de altura                          |
+| vl_umidade_relativa          | DECIMAL            | Umidade relativa do ar durante o evento                          |
+| vl_temperatura_aparente      | DECIMAL            | Temperatura percebida ou aparente                                |
+| vl_precipitacao              | DECIMAL            | Precipitação medida no momento                                   |
+| vl_velocidade_vento          | DECIMAL            | Velocidade do vento registrada                                   |
+| vl_chuva                     | DECIMAL            | Quantidade de chuva medida                                       |
+| vl_pressao_atmosferica       | DECIMAL            | Pressão atmosférica medida durante o evento                      |
+| vl_direcao_vento             | DECIMAL            | Direção do vento registrada                                      |
+| ds_satelite                  | VARCHAR            | Nome do satélite que capturou a informação                       |
+| vl_risco_incendio            | DECIMAL            | Índice de risco de incêndio                                      |
+| vl_potencia_radiativa_fogo   | DECIMAL            | Potência radiativa do fogo                                       |
+
+---
+
+## Tabela: dimensao_data
+| **Campo**                    | **Tipo de Dado**   | **Descrição**                                                    |
+|------------------------------|--------------------|------------------------------------------------------------------|
+| id_data                      | INT (PK)           | Identificador único da data                                      |
+| nr_dia                       | INT                | Dia do mês                                                      |
+| nr_mes                       | INT                | Mês do ano                                                      |
+| nr_ano                       | INT                | Ano                                                             |
+| ds_dia_da_semana             | VARCHAR            | Nome do dia da semana                                           |
+| nr_semana_do_ano             | INT                | Semana do ano                                                   |
+| fl_dia_util                  | BOOLEAN            | Indica se o dia é útil                                          |
+| ds_estacao_ano               | VARCHAR            | Estação do ano (Verão, Inverno, etc.)                           |
+| nr_bimestre                  | INT                | Bimestre do ano                                                 |
+| nr_trimestre                 | INT                | Trimestre do ano                                                |
+| nr_semestre                  | INT                | Semestre do ano                                                 |
+
+---
+
+## Tabela: dimensao_localizacao
+| **Campo**                    | **Tipo de Dado**   | **Descrição**                                                    |
+|------------------------------|--------------------|------------------------------------------------------------------|
+| id_local                     | INT (PK)           | Identificador único da localização                               |
+| ds_municipio                 | VARCHAR            | Nome do município                                                |
+| ds_estado                    | VARCHAR            | Nome do estado                                                   |
+| ds_pais                      | VARCHAR            | Nome do país                                                     |
+| ds_bioma                     | VARCHAR            | Nome do bioma (ex: Amazônia, Cerrado)                            |
+
+---
+
+## Tabela: dimensao_origem
+| **Campo**                    | **Tipo de Dado**   | **Descrição**                                                    |
+|------------------------------|--------------------|------------------------------------------------------------------|
+| id_origem                    | INT (PK)           | Identificador único da origem                                    |
+| ds_origem_queimada           | VARCHAR            | Descrição da origem da queimada (ex: natural ou humana)          |
+| fl_atv_humana                | BOOLEAN            | Indica se a queimada foi causada por atividade humana            |
+| fl_responsavel               | BOOLEAN            | Indica se houve responsável identificado pela queimada           |
  
 ## Proposta de Solução
 
