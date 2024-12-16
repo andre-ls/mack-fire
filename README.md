@@ -78,7 +78,7 @@ Optamos por utilizar a **Wide Table** na nossa **camada de streaming** devido à
 
 
 #### **Diagrama da Wide Table**
-Abaixo está o diagrama que representa a modelagem em Star Schema:
+Abaixo está o diagrama que representa a modelagem da Wide Table:
 
 ![Wide Table](https://github.com/andre-ls/mack-fire/blob/main/WideTableMackFire.png)
 
