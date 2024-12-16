@@ -165,17 +165,17 @@ Por fim, visando trazer uma maior acessibilidade dos dados disponibilizados pela
 | **Campo**                     | **Tipo de Dado**    | **Descrição**                                                     |
 |-------------------------------|---------------------|-------------------------------------------------------------------|
 | ID                            | INT (PK)           | Identificador único da instância                                  |
-| vl_latitude                   | FLOAT              | Latitude do ponto da queimada                                     |
-| vl_longitude                  | FLOAT              | Longitude do ponto da queimada                                     |
+| vl_latitude                   | DECIMAL            | Latitude do ponto da queimada                                     |
+| vl_longitude                  | DECIMAL            | Longitude do ponto da queimada                                     |
 | dt_data                       | DATE               | Data do registro do evento                                        |
 | fl_dia_noite                  | BOOLEAN            | Indica se o evento ocorreu durante o dia ou a noite               |
-| vl_temperatura_a_2_metros     | FLOAT              | Temperatura medida a 2 metros de altura, em graus Celsius         |
-| vl_umidade_relativa           | FLOAT              | % da umidade relativa do ar durante o evento                      |
-| vl_temperatura_aparente       | FLOAT              | Temperatura percebida ou aparente                                 |
-| vl_precipitacao               | FLOAT              | Precipitação medida no momento                                    |
-| vl_chuva                      | FLOAT              | Valor específico de chuva acumulada em milímetros                 |
-| vl_pressao_atmosferica        | FLOAT              | Pressão atmosférica registrada em hPa (hectopascal)               |
-| vl_velocidade_vento           | FLOAT              | Velocidade do vento registrada em km/h                            |
+| vl_temperatura_a_2_metros     | DECIMAL            | Temperatura medida a 2 metros de altura, em graus Celsius         |
+| vl_umidade_relativa           | DECIMAL            | % da umidade relativa do ar durante o evento                      |
+| vl_temperatura_aparente       | DECIMAL            | Temperatura percebida ou aparente                                 |
+| vl_precipitacao               | DECIMAL            | Precipitação medida no momento                                    |
+| vl_chuva                      | DECIMAL            | Valor específico de chuva acumulada em milímetros                 |
+| vl_pressao_atmosferica        | DECIMAL            | Pressão atmosférica registrada em hPa (hectopascal)               |
+| vl_velocidade_vento           | DECIMAL            | Velocidade do vento registrada em km/h                            |
 | vl_direcao_vento              | INT                | Direção do vento em graus (0-360°)                                |
 | date_insercao                 | DATETIME           | Data e hora de inserção do registro no sistema                    |
 | ds_municipio                  | VARCHAR            | Nome do município onde ocorreu o evento                           |
