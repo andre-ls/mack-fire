@@ -119,7 +119,7 @@ Com as duas camadas coexistindo na mesma arquitetura, consegue-se promover a ent
 
 Para implementá-la, este projeto utilizou como base os serviços disponibilizados pelo Google Cloud. Abaixo, um esquema final da arquitetura, com a indicação de cada serviço utilizado, é ilustrada.
 
-![Arquitetura](arquitetura.png)
+![Arquitetura](https://github.com/andre-ls/mack-fire/blob/main/Arquivo%20da%20Arquitetura%20drawio.png)
 
 Listando de maneira um pouco mais detalhada, os seguintes serviços do Google Cloud foram utilizados:
 - Cloud Functions: Produto Serveless de Function as a Service, que permite a disponibilização de códigos de baixa complexidade em ambiente de Nuvem com poucas configurações. Neste projeto, o Functions foi utilizado para a execução de código Python responsável pela ingestão dos dados oriundos do INPE.
