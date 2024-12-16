@@ -43,7 +43,8 @@ Visando complementar estes dados com mais informações, o projeto também utili
   - Cidade
   - Estado
   - País
- 
+--- 
+
 # Dicionário de Dados
 
 ## Tabela: fato_queimada
@@ -104,7 +105,8 @@ Visando complementar estes dados com mais informações, o projeto também utili
 | ds_origem_queimada           | VARCHAR            | Descrição da origem da queimada (ex: natural ou humana)          |
 | fl_atv_humana                | BOOLEAN            | Indica se a queimada foi causada por atividade humana            |
 | fl_responsavel               | BOOLEAN            | Indica se houve responsável identificado pela queimada           |
- 
+---
+
 ## Proposta de Solução
 
 ### Arquitetura de Dados
@@ -125,9 +127,11 @@ Listando de maneira um pouco mais detalhada, os seguintes serviços do Google Cl
 - Cloud Storage: Para o armazenamento dos dados na camada de Batch foi utilizado o Cloud Storage, solução de armanzenamento de objetos do Google Cloud. 
 - PubSub: Para a transmissão de mensagens em baixa latência na camada de Streaming, foi utilizado o PubSub, serviço de streaming do Google Cloud. Como o seu nome já entrega, seu funcinamento é baseado no modelo de Publisher/Subscirber, com o envio e consumo de mensagens organizado via tópicos.
 - BigQuery: Por fim, para disponibilização dos dados aos seus usuários finais, foi utilizado o BigQuery, ferramenta de Data Warehousing do Google. Através dela, é possível armazenar e consultar dados via SQL de uma maneira bastante performática. Sem falar, que várias outras ferramentas de análise e visualização de dados possuem integração direta com o BigQuery.
+---
 
 ### Modelagem de Dados
 TO-DO
+---
 
 ## Minimal Viable Product (MVP)
 
