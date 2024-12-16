@@ -43,8 +43,46 @@ Visando complementar estes dados com mais informações, o projeto também utili
   - Cidade
   - Estado
   - País
---- 
+---
+## Modelagem de Dados
 
+A modelagem de dados do projeto foi realizada com base em duas abordagens distintas: **Star Schema** e **Wide Table**, que permitem atender diferentes necessidades de análise e performance.
+
+### **1. Star Schema**
+
+O **Star Schema** foi utilizado para organizar os dados de forma estruturada, facilitando consultas analíticas e garantindo melhor desempenho em sistemas OLAP (Online Analytical Processing). Ele é composto por uma tabela fato e tabelas dimensão relacionadas.
+
+#### **Diagrama do Star Schema**
+Abaixo está o diagrama que representa a modelagem em Star Schema:
+
+![Star Schema](https://github.com/andre-ls/mack-fire/blob/main/StarSchemaMackFire%20.png)
+
+#### **Tabelas**
+
+- **Tabela Fato: fato_queimada**  
+  Contém os dados principais relacionados às queimadas e métricas para análise.  
+  Possui chaves estrangeiras que referenciam as tabelas dimensão.
+
+- **Tabelas Dimensão:**  
+  - **dimensao_data:** Contém informações relacionadas à data do evento.  
+  - **dimensao_localizacao:** Contém dados geográficos como município, estado, país e bioma.  
+  - **dimensao_origem:** Contém informações sobre a origem da queimada, como causas naturais ou humanas.
+
+---
+
+### **2. Wide Table**
+
+A **Wide Table** é uma abordagem alternativa que consolida todos os dados de interesse em uma única tabela desnormalizada. Ela agrega os atributos das tabelas fato e dimensão em colunas individuais, oferecendo uma estrutura plana e simplificada. 
+
+Optamos por utilizar a **Wide Table** na nossa **camada de streaming** devido à sua estrutura desnormalizada, que facilita a ingestão e o processamento de dados em tempo real. A ausência de junções complexas entre tabelas permite um **consumo mais rápido** e **eficiente** das informações, essencial para cenários em que a latência precisa ser minimizada. Dessa forma, conseguimos entregar dados consolidados e prontos para consumo, garantindo maior agilidade para análises em tempo real e aplicações que dependem de dados contínuos.
+
+
+#### **Diagrama da Wide Table**
+Abaixo está o diagrama que representa a modelagem em Star Schema:
+
+![Wide Table](https://github.com/andre-ls/mack-fire/blob/main/WideTableMackFire.png)
+
+---
 # Dicionário de Dados
 
 ## Tabela: fato_queimada
@@ -127,10 +165,6 @@ Listando de maneira um pouco mais detalhada, os seguintes serviços do Google Cl
 - Cloud Storage: Para o armazenamento dos dados na camada de Batch foi utilizado o Cloud Storage, solução de armanzenamento de objetos do Google Cloud. 
 - PubSub: Para a transmissão de mensagens em baixa latência na camada de Streaming, foi utilizado o PubSub, serviço de streaming do Google Cloud. Como o seu nome já entrega, seu funcinamento é baseado no modelo de Publisher/Subscirber, com o envio e consumo de mensagens organizado via tópicos.
 - BigQuery: Por fim, para disponibilização dos dados aos seus usuários finais, foi utilizado o BigQuery, ferramenta de Data Warehousing do Google. Através dela, é possível armazenar e consultar dados via SQL de uma maneira bastante performática. Sem falar, que várias outras ferramentas de análise e visualização de dados possuem integração direta com o BigQuery.
----
-
-### Modelagem de Dados
-TO-DO
 ---
 
 ## Minimal Viable Product (MVP)
