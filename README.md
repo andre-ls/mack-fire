@@ -62,7 +62,7 @@ Com as duas camadas coexistindo na mesma arquitetura, consegue-se promover a ent
 
 Para implementá-la, este projeto utilizou como base os serviços disponibilizados pelo Google Cloud. Abaixo, um esquema final da arquitetura, com a indicação de cada serviço utilizado, é ilustrada.
 
-![arquitetura da solução](https://github.com/andre-ls/mack-fire/blob/main/Foto%20da%20Arquitetura%20drawio.png)
+![Arquitetura](arquitetura.png)
 
 Listando de maneira um pouco mais detalhada, os seguintes serviços do Google Cloud foram utilizados:
 - Cloud Functions: Produto Serveless de Function as a Service, que permite a disponibilização de códigos de baixa complexidade em ambiente de Nuvem com poucas configurações. Neste projeto, o Functions foi utilizado para a execução de código Python responsável pela ingestão dos dados oriundos do INPE.
@@ -87,7 +87,7 @@ A Arquitetura do MVP implementado segue o desenho abaixo, que de certa forma con
 
 Para o consumo e exibição dos dados processados, um dashboard foi criado utilizando o Streamlit, uma plataforma open-source que permite a criação rápida e fácil de aplicativos simples a partir da utilização de código Python. 
 
-![Dashboard](https://github.com/andre-ls/mack-fire/blob/main/Dashboard.png)
+![Dashboard](dashboard.png)
 
 Um Dashboard fora feito, possibilitando a visualização dos dados perante e sua posição em relação a um mapa mundial e os detalhes metereológicos detalhados de acordo com sua esta posição. Suas visualizações foram criadas com o objetivo de fornecer ao usuário um rápido e claro panorama do cenário atual de ocorrência de queimadas na América do Sul, focando principalmente na sua localização, mas também adicionando informações metereológicas que possam contribuir para uma inferência sobre a possível origem dos eventos, como a temperatura, níveis de precipitação e umidade, ou que possam ser de relevância para o devido combate à ocorrência e sua mitigação, como a velocidade e direção do vento.
 
