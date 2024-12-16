@@ -175,6 +175,7 @@ Como Produto Mínimo Viável da arquitetura completa proposta, este projeto foco
 
 A Arquitetura do MVP implementado segue o desenho abaixo, que de certa forma consiste em um recorte da camada de Streaming da arquitetura completa.
 
+![Streaming](https://github.com/andre-ls/mack-fire/blob/main/Arquitetura%20Streaming.png)
 
 ### Dashboard
 
