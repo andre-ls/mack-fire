@@ -77,7 +77,7 @@ O **Star Schema** foi utilizado para organizar os dados de forma estruturada, fa
 #### **Diagrama do Star Schema**
 Abaixo está o diagrama que representa a modelagem em Star Schema:
 
-![Star Schema](https://github.com/andre-ls/mack-fire/blob/main/StarSchemaMackFire%20.png)
+![Star Schema](https://github.com/andre-ls/mack-fire/blob/main/StarSchemaMackFire.drawio.png)
 
 #### **Tabelas**
 
