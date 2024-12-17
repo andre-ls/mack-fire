@@ -99,7 +99,7 @@ Optamos por utilizar a **Wide Table** na nossa **camada de streaming** devido à
 #### **Diagrama da Wide Table**
 Abaixo está o diagrama que representa a modelagem da Wide Table:
 
-![Wide Table](https://github.com/andre-ls/mack-fire/blob/main/WideTableMackFire.png)
+![Wide Table](https://github.com/andre-ls/mack-fire/blob/main/WideTableMackFire.drawio.png)
 
 ### Dicionário de Dados
 Por fim, visando trazer uma maior acessibilidade dos dados disponibilizados pela solução, e ao mesmo tempo, garantir uma sólida documentação da solução como um todo, um Dicionário de Dados foi proposto, contendo o nome, tipo dos dados contidos e uma breve descrição conceitual de cada campo das tabelas disponibilizadas.
