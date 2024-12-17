@@ -57,7 +57,7 @@ Com as duas camadas coexistindo na mesma arquitetura, consegue-se promover a ent
 
 Para implementá-la, este projeto utilizou como base os serviços disponibilizados pelo Google Cloud. Abaixo, um esquema final da arquitetura, com a indicação de cada serviço utilizado, é ilustrada.
 
-![Arquitetura](https://github.com/andre-ls/mack-fire/blob/main/Arquivo%20da%20Arquitetura%20drawio.png)
+![Arquitetura](arquitetura_geral.png)
 
 Listando de maneira um pouco mais detalhada, os seguintes serviços do Google Cloud foram utilizados:
 - Cloud Functions: Produto Serveless de Function as a Service, que permite a disponibilização de códigos de baixa complexidade em ambiente de Nuvem com poucas configurações. Neste projeto, o Functions foi utilizado para a execução de código Python responsável pela ingestão dos dados oriundos do INPE.
@@ -77,7 +77,7 @@ O **Star Schema** foi utilizado para organizar os dados de forma estruturada, fa
 #### **Diagrama do Star Schema**
 Abaixo está o diagrama que representa a modelagem em Star Schema:
 
-![Star Schema](https://github.com/andre-ls/mack-fire/blob/main/StarSchemaMackFire.drawio.png)
+<img src="https://github.com/andre-ls/mack-fire/blob/main/StarSchemaMackFire.drawio.png" alt="Star Schema" height="500">
 
 #### **Tabelas**
 
@@ -99,7 +99,7 @@ Optamos por utilizar a **Wide Table** na nossa **camada de streaming** devido à
 #### **Diagrama da Wide Table**
 Abaixo está o diagrama que representa a modelagem da Wide Table:
 
-![Wide Table](https://github.com/andre-ls/mack-fire/blob/main/WideTableMackFire.drawio.png)
+<img src="https://github.com/andre-ls/mack-fire/blob/main/WideTableMackFire.drawio.png" alt="Wide Table" height="700">
 
 ### Dicionário de Dados
 Por fim, visando trazer uma maior acessibilidade dos dados disponibilizados pela solução, e ao mesmo tempo, garantir uma sólida documentação da solução como um todo, um Dicionário de Dados foi proposto, contendo o nome, tipo dos dados contidos e uma breve descrição conceitual de cada campo das tabelas disponibilizadas.
@@ -192,7 +192,7 @@ Como Produto Mínimo Viável da arquitetura completa proposta, este projeto foco
 
 A Arquitetura do MVP implementado segue o desenho abaixo, que de certa forma consiste em um recorte da camada de Streaming da arquitetura completa.
 
-![Streaming](https://github.com/andre-ls/mack-fire/blob/main/Arquitetura%20Streaming.png)
+![Streaming](speed_layer.png)
 
 ### Dashboard
 
@@ -200,9 +200,7 @@ Para o consumo e exibição dos dados processados, um dashboard foi criado utili
 
 ![Dashboard](dashboard.png)
 
-https://mack-fire.streamlit.app/
-
-Um Dashboard fora feito, possibilitando a visualização dos dados perante e sua posição em relação a um mapa mundial e os detalhes metereológicos detalhados de acordo com sua esta posição. Suas visualizações foram criadas com o objetivo de fornecer ao usuário um rápido e claro panorama do cenário atual de ocorrência de queimadas na América do Sul, focando principalmente na sua localização, mas também adicionando informações metereológicas que possam contribuir para uma inferência sobre a possível origem dos eventos, como a temperatura, níveis de precipitação e umidade, ou que possam ser de relevância para o devido combate à ocorrência e sua mitigação, como a velocidade e direção do vento.
+Um Dashboard fora feito, possibilitando a visualização dos dados perante e sua posição em relação a um mapa mundial e os detalhes metereológicos detalhados de acordo com sua esta posição. Suas visualizações foram criadas com o objetivo de fornecer ao usuário um rápido e claro panorama do cenário atual de ocorrência de queimadas na América do Sul, focando principalmente na sua localização, mas também adicionando informações metereológicas que possam contribuir para uma inferência sobre a possível origem dos eventos, como a temperatura, níveis de precipitação e umidade, ou que possam ser de relevância para o devido combate à ocorrência e sua mitigação, como a velocidade e direção do vento. O Dashboad pode ser publicamente acessado [aqui](https://mack-fire.streamlit.app/).
 
 O Dashboard foi programado para uma atualização automática a cada 10 minutos, de forma a fazê-lo capturar o estado mais recente dos dados. Entretanto, para fins de economia e evitar custos computacionais à plataforma do Streamlit, que hospeda a aplicação gratuitamente em sua infraestrutura, as atualizações automáticas são desativadas após 100 execuções a partir da ativação da aplicação.
 
